@@ -1,11 +1,15 @@
 package dson.crowee.obj.objects;
 
+import dson.crowee.obj.objects.UI.SpriteSheet;
+
 public class Item {
     private String formalCode;
     private Integer internalCode;
     private String formalName;
     private String onCarryBy;
     private String carrierCode;
+
+    private SpriteSheet spriteSheet;
 
     public String getFormalCode() {
         return formalCode;

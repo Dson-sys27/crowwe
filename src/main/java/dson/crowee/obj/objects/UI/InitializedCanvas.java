@@ -1,22 +1,24 @@
 package dson.crowee.obj.objects.UI;
 
-import dson.crowee.obj.objects.UI.Util;
-import dson.crowee.sources.UIManager;
+import dson.crowee.sources.graphicSource.GraphicCoreManager;
 
 import javax.swing.*;
 import java.awt.*;
 
 
-public class Canva extends Canvas{
+public class InitializedCanvas extends Canvas{
     private JFrame mainWindow;
-    public Canva(){
+    private GraphicCoreManager graphicCoreManager;
+    public InitializedCanvas(){
         setUIOnExecution();
     }
 
     private void setUIOnExecution(){
+        graphicCoreManager = GraphicCoreManager.getGraphicCoreManager();
         this.setPreferredSize(new Dimension(Util.WINDOW_WIDTH, Util.WINDOW_HEIGHT));
 
         mainWindow = new JFrame("crowee");
+        mainWindow.setResizable(Boolean.FALSE);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setLayout(new BorderLayout());
         mainWindow.add(this, BorderLayout.CENTER);
@@ -27,6 +29,7 @@ public class Canva extends Canvas{
 
     @Override
     public void paint(Graphics graphics){
-
+        super.paint(graphics);
+        graphicCoreManager.perform();
     }
 }

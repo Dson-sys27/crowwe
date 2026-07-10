@@ -1,12 +1,14 @@
-package dson.crowee.obj.objects.UI;
+package dson.crowee.sources.graphicSource.UI;
+
+import dson.crowee.globals.Utilities;
 
 public class Screen {
     private int width, length;
     private int[] pixelmap;
 
     public Screen(){
-        this.length = Util.WINDOW_HEIGHT;
-        this.width = Util.WINDOW_WIDTH;
+        this.length = Utilities.WINDOW_HEIGHT;
+        this.width = Utilities.WINDOW_WIDTH;
 
         pixelmap = new int[this.length * this.width];
     }

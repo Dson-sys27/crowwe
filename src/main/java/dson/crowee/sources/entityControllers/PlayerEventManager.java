@@ -1,11 +1,12 @@
 package dson.crowee.sources.entityControllers;
 
+import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.PlayerCharacter;
 import dson.crowee.sources.keyboardHandler.KeyboardListener;
 
 import java.awt.event.KeyEvent;
 
-public class PlayerKeyEventManager {
+public class PlayerEventManager {
     private static KeyboardListener keyboardListener;
     private static PlayerCharacter playerCharacter;
 
@@ -16,31 +17,37 @@ public class PlayerKeyEventManager {
 
     public static void updatePlayerAction(){
 
-        float curentX = playerCharacter.getX();
-        float currentY = playerCharacter.getY();
+        int currentX = playerCharacter.getX();
+        int currentY = playerCharacter.getY();
 
         if(KeyboardListener.getKey(KeyEvent.VK_W)){
-            playerCharacter.setY(currentY - Util.PLAYER_SPEED);
+            playerCharacter.setY(currentY - Utilities.PLAYER_SPEED);
         }
         if(KeyboardListener.getKey(KeyEvent.VK_A)){
-            playerCharacter.setX(curentX - Util.PLAYER_SPEED);
+            playerCharacter.setX(currentX - Utilities.PLAYER_SPEED);
         }
         if(KeyboardListener.getKey(KeyEvent.VK_S)){
-            playerCharacter.setY(currentY + Util.PLAYER_SPEED);
+            playerCharacter.setY(currentY + Utilities.PLAYER_SPEED);
         }
         if(KeyboardListener.getKey(KeyEvent.VK_D)){
-            playerCharacter.setX(curentX + Util.PLAYER_STEP_LENGTH);
+            playerCharacter.setX(currentX + Utilities.PLAYER_SPEED);
         }
         if(KeyboardListener.getKey(KeyEvent.VK_E)){
             System.out.println("E");
         }
+
+        playerCharacter.getTrigger().udatePosition();
+
+        if((currentX % 32 != playerCharacter.getX()) || (currentY % 32 != playerCharacter.getY())){
+            playerCharacter.getTrigger().sendSignal();
+        }
     }
 
-    public static float getX(){
+    public static int getX(){
         return playerCharacter.getX();
     }
 
-    public static float getY(){
+    public static int getY(){
         return playerCharacter.getY();
     }
 }

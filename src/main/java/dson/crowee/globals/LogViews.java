@@ -6,7 +6,7 @@ import org.slf4j.LoggerFactory;
 
 public class LogViews {
     private static final Logger graphicLogger = LoggerFactory.getLogger(GraphicCoreManager.class);
-
+    private static Logger playerCharacterGraphicsControllerLogger;
 
 
     public static void dropGraphicsCoreWarning(String image){

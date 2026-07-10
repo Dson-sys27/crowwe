@@ -7,7 +7,7 @@
     </appender>
 
     <appender name="ARCHIVO" class="ch.qos.logback.core.FileAppender">
-        <file>src/main/java/dson/crowee</file>
+        <file>src/main/java/dson/crowee/log.txt</file>
         <append>true</append> <encoder>
         <pattern>%d{yyyy-MM-dd HH:mm:ss} [%thread] %-5level %logger{36} - %msg%n</pattern>
     </encoder>

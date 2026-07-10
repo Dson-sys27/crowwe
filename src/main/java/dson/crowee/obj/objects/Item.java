@@ -1,6 +1,6 @@
 package dson.crowee.obj.objects;
 
-import dson.crowee.obj.objects.UI.SpriteSheet;
+import dson.crowee.sources.graphicSource.UI.SpriteSheet;
 
 public class Item {
     private String formalCode;

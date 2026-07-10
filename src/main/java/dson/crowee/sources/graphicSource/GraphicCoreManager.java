@@ -1,12 +1,19 @@
 package dson.crowee.sources.graphicSource;
 
 import dson.crowee.globals.LogViews;
-import dson.crowee.obj.objects.UI.InitializedCanvas;
+import dson.crowee.globals.Utilities;
+import dson.crowee.obj.objects.PlayerCharacter;
+import dson.crowee.sources.graphicSource.UI.InitializedCanvas;
+import dson.crowee.sources.graphicSource.singleGraphicManagers.PlayerCharacterGraphicsController;
+import dson.crowee.sources.graphicSource.singleGraphicManagers.PropsGraphicsController;
+import dson.crowee.sources.graphicSource.singleGraphicManagers.UIGraphicsManager;
+import dson.crowee.sources.graphicSource.singleGraphicManagers.WorldMapGraphicsManager;
 import dson.crowee.sources.keyboardHandler.KeyboardListener;
-import dson.crowee.sources.entityControllers.PlayerKeyEventManager;
+import dson.crowee.sources.entityControllers.PlayerEventManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
 import java.awt.image.BufferedImage;
 import java.io.File;
@@ -58,7 +65,7 @@ public class GraphicCoreManager implements Runnable{
             final long loopInit = System.nanoTime();
             spentTime = loopInit - updateReference;
             updateReference = loopInit;
-            delta += spentTime/ Util.NS_PER_FRAME;
+            delta += spentTime/ Utilities.NS_PER_FRAME;
             while(delta >= 1){
                 update();
                 delta--;
@@ -68,36 +75,40 @@ public class GraphicCoreManager implements Runnable{
     }
 
     private void update(){
-        //TODO
-        //KeyEvents
-        PlayerKeyEventManager.updatePlayerAction();
+        //All game updates
+
+        PlayerEventManager.updatePlayerAction();
     }
 
     public void perform(){     //To manage what the screen shows
 
-        int spriteSize = Util.SPRITE_SIZE * Util.SCALE_SIZE;
-
         if(canvas.getBufferStrategy() == null)
             canvas.createBufferStrategy(3);
         BufferStrategy bufferStrategy = canvas.getBufferStrategy();
-        Graphics graphics = bufferStrategy.getDrawGraphics();
-        BufferedImage image = null;
-        BufferedImage player = null;
-        try{
-            image = ImageIO.read(new File("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\euclideus_floor.png"));
-            player = ImageIO.read(new File("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\player\\davdrak.png"));
-        }catch(IOException e){
-            LogViews.dropGraphicsCoreWarning("");
-        }
 
-        for(int i = 0; i < Util.SCREEN_HEIGHT; i += Util.SPRITE_SIZE)
-            for(int j = 0; j < Util.SCREEN_WIDTH; j += Util.SPRITE_SIZE)
-                graphics.drawImage(image, j, i, spriteSize, spriteSize, null);
+        Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
 
-        graphics.drawImage(player, (int)PlayerKeyEventManager.getX(), (int)PlayerKeyEventManager.getY(), spriteSize, spriteSize, null);
+        PlayerCharacter player = PlayerCharacterGraphicsController.getPlayerCharacter();
+
+        int camX = player.getX() - (Utilities.SCREEN_WIDTH / 2) + (Utilities.SPRITE_SIZE / 2);
+        int camY = player.getY() - (Utilities.SCREEN_HEIGHT / 2) + (Utilities.SPRITE_SIZE / 2);
+
+        AffineTransform originalCameraPosition = graphics.getTransform();
+
+        graphics.translate(-camX, -camY);
+
+        WorldMapGraphicsManager.drawWorldMap(graphics);
+        PlayerCharacterGraphicsController.drawObject(graphics);
+        PropsGraphicsController.drawObjects(graphics);
+
+        graphics.setTransform(originalCameraPosition);
+
+        UIGraphicsManager.drawUIObjects(graphics);
 
         graphics.dispose();
         bufferStrategy.show();
+
+        graphics.clearRect(0, 0, Utilities.SCREEN_WIDTH, Utilities.SCREEN_HEIGHT);
     }
 
     //getters / setters

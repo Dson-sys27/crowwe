@@ -1,4 +1,6 @@
-package dson.crowee.obj.objects.UI;
+package dson.crowee.sources.graphicSource.UI;
+
+import dson.crowee.globals.Utilities;
 
 import javax.imageio.ImageIO;
 import java.awt.image.BufferedImage;
@@ -9,19 +11,19 @@ public class SpriteSheet {
     private int[] pixelMap;
 
     public SpriteSheet (final String sourcePath) throws IOException{
-        width = Util.SPRITESHEET_STANDARD_WIDTH;
-        length = Util.SPRITESHEET_STANDARD_LENGTH;
-        pixelMap = new int[Util.SPRITESHEET_STANDARD_WIDTH * Util.SPRITESHEET_STANDARD_LENGTH];
+        width = Utilities.SPRITESHEET_STANDARD_WIDTH;
+        length = Utilities.SPRITESHEET_STANDARD_LENGTH;
+        pixelMap = new int[Utilities.SPRITESHEET_STANDARD_WIDTH * Utilities.SPRITESHEET_STANDARD_LENGTH];
         BufferedImage spriteImage;
         spriteImage = ImageIO.read(SpriteSheet.class.getResource(sourcePath));
         spriteImage.getRGB(
                 0,
                 0,
-                Util.SPRITESHEET_STANDARD_WIDTH,
-                Util.SPRITESHEET_STANDARD_LENGTH,
+                Utilities.SPRITESHEET_STANDARD_WIDTH,
+                Utilities.SPRITESHEET_STANDARD_LENGTH,
                 pixelMap,
                 0,
-                Util.SPRITESHEET_STANDARD_WIDTH);
+                Utilities.SPRITESHEET_STANDARD_WIDTH);
 
     }
 

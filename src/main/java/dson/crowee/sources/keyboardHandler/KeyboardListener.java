@@ -1,5 +1,7 @@
 package dson.crowee.sources.keyboardHandler;
 
+import dson.crowee.globals.Utilities;
+
 import java.awt.event.KeyEvent;
 import java.awt.event.KeyListener;
 
@@ -9,8 +11,8 @@ public class KeyboardListener implements KeyListener {
 
     public static void initializeKeyboardListener(){
         keyboardListener = new KeyboardListener();
-        keyCatalogue = new boolean[Util.LARGEST_KEY_CODE];
-        for(int i = 0; i < Util.LARGEST_KEY_CODE; i++)
+        keyCatalogue = new boolean[Utilities.LARGEST_KEY_CODE];
+        for(int i = 0; i < Utilities.LARGEST_KEY_CODE; i++)
             keyCatalogue[i] = Boolean.FALSE;
     }
 
@@ -19,12 +21,12 @@ public class KeyboardListener implements KeyListener {
     }
 
     @Override
-    public void keyPressed(KeyEvent e) {
+    public void keyPressed(KeyEvent e) throws IndexOutOfBoundsException{
         keyCatalogue[e.getKeyCode()] = true;
     }
 
     @Override
-    public void keyReleased(KeyEvent e) {
+    public void keyReleased(KeyEvent e) throws IndexOutOfBoundsException{
         keyCatalogue[e.getKeyCode()] = false;
     }
 

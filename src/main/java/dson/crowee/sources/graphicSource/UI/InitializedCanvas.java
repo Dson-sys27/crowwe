@@ -1,5 +1,6 @@
-package dson.crowee.obj.objects.UI;
+package dson.crowee.sources.graphicSource.UI;
 
+import dson.crowee.globals.Utilities;
 import dson.crowee.sources.graphicSource.GraphicCoreManager;
 
 import javax.swing.*;
@@ -15,7 +16,7 @@ public class InitializedCanvas extends Canvas{
 
     private void setUIOnExecution(){
         graphicCoreManager = GraphicCoreManager.getGraphicCoreManager();
-        this.setPreferredSize(new Dimension(Util.WINDOW_WIDTH, Util.WINDOW_HEIGHT));
+        this.setPreferredSize(new Dimension(Utilities.WINDOW_WIDTH, Utilities.WINDOW_HEIGHT));
 
         mainWindow = new JFrame("crowee");
         mainWindow.setResizable(Boolean.FALSE);

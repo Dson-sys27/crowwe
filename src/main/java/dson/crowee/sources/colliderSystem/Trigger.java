@@ -3,7 +3,6 @@ package dson.crowee.sources.colliderSystem;
 import dson.crowee.obj.objects.Entity;
 
 import java.awt.*;
-import java.util.List;
 
 public class Trigger <T extends Entity>{
     private final T entityOnTrigger;
@@ -30,8 +29,39 @@ public class Trigger <T extends Entity>{
                 && (y >= triggerY && y <= (heigth + triggerY));
     }
 
-    public void sendSignal(){
-        List<Signal> signalMail = CollisionManager.getSignalMail();
-        //signalMail.add(new Signal(entityOnTrigger, entityOnTrigger.getX(), entityOnTrigger.getY(), ));
+    public int getWidth() {
+        return width;
+    }
+
+    public void setWidth(int width) {
+        this.width = width;
+    }
+
+    public int getHeigth() {
+        return heigth;
+    }
+
+    public void setHeigth(int heigth) {
+        this.heigth = heigth;
+    }
+
+    public T getEntityOnTrigger() {
+        return entityOnTrigger;
+    }
+
+    public int getTriggerX() {
+        return triggerX;
+    }
+
+    public void setTriggerX(int triggerX) {
+        this.triggerX = triggerX;
+    }
+
+    public int getTriggerY() {
+        return triggerY;
+    }
+
+    public void setTriggerY(int triggerY) {
+        this.triggerY = triggerY;
     }
 }

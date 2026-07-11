@@ -3,6 +3,7 @@ package dson.crowee.sources.graphicSource;
 import dson.crowee.globals.LogViews;
 import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.PlayerCharacter;
+import dson.crowee.sources.colliderSystem.CollisionManager;
 import dson.crowee.sources.graphicSource.UI.InitializedCanvas;
 import dson.crowee.sources.graphicSource.singleGraphicManagers.PlayerCharacterGraphicsController;
 import dson.crowee.sources.graphicSource.singleGraphicManagers.PropsGraphicsController;
@@ -76,8 +77,8 @@ public class GraphicCoreManager implements Runnable{
 
     private void update(){
         //All game updates
-
         PlayerEventManager.updatePlayerAction();
+        CollisionManager.processSignals();
     }
 
     public void perform(){     //To manage what the screen shows

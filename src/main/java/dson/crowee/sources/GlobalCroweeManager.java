@@ -2,6 +2,7 @@ package dson.crowee.sources;
 
 import dson.crowee.obj.objects.FormalCode;
 import dson.crowee.obj.objects.PlayerCharacter;
+import dson.crowee.sources.colliderSystem.CollisionManager;
 import dson.crowee.sources.entityControllers.PlayerEventManager;
 import dson.crowee.sources.graphicSource.GraphicCoreManager;
 import dson.crowee.sources.graphicSource.singleGraphicManagers.PlayerCharacterGraphicsController;
@@ -18,6 +19,8 @@ public class GlobalCroweeManager {
         DataStorageManager.loadObjectMapper();
 
         PlayerCharacter theMan = new PlayerCharacter(FormalCode.PLAYER_1);
+
+        CollisionManager.setTriggerSystemOnWork();
 
         PlayerEventManager.setPlayerKeyEventManagerOnWork(theMan);
 

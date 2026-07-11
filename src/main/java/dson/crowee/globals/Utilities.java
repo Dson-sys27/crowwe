@@ -31,4 +31,6 @@ public class Utilities {
 
     public static final int[][] worldMap = MapRenderer.renderMap("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\map\\mapSource");
 
+    public static final int SPATIAL_GRID_CELL_SIZE = 128;
+
 }

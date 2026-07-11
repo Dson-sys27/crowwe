@@ -6,10 +6,10 @@ public class Signal {
     Entity entity;
     int x, y, previousX, previousY;
 
-    public Signal(Entity entity, int x, int y, int previousX, int previousY){
+    public Signal(Entity entity, int previousX, int previousY){
         this.entity = entity;
-        this.x = x;
-        this.y = y;
+        this.x = entity.getX();
+        this.y = entity.getY();
         this.previousX = previousX;
         this.previousY = previousY;
     }

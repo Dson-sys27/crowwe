@@ -1,18 +1,24 @@
 package dson.crowee.sources.entityControllers;
 
 import dson.crowee.globals.Utilities;
+import dson.crowee.obj.objects.Entity;
 import dson.crowee.obj.objects.PlayerCharacter;
+import dson.crowee.sources.colliderSystem.CollisionManager;
+import dson.crowee.sources.colliderSystem.Signal;
 import dson.crowee.sources.keyboardHandler.KeyboardListener;
 
 import java.awt.event.KeyEvent;
+import java.util.ArrayDeque;
+import java.util.Queue;
 
 public class PlayerEventManager {
-    private static KeyboardListener keyboardListener;
     private static PlayerCharacter playerCharacter;
+    private static ArrayDeque<Signal> signalMail;
+
 
     public static void setPlayerKeyEventManagerOnWork(PlayerCharacter player){
-        keyboardListener = KeyboardListener.getKeyboardListener();
         playerCharacter = player;
+        signalMail = CollisionManager.getSignalMail();
     }
 
     public static void updatePlayerAction(){
@@ -38,8 +44,10 @@ public class PlayerEventManager {
 
         playerCharacter.getTrigger().udatePosition();
 
-        if((currentX % 32 != playerCharacter.getX()) || (currentY % 32 != playerCharacter.getY())){
-            playerCharacter.getTrigger().sendSignal();
+        if((currentX % Utilities.SPATIAL_GRID_CELL_SIZE != playerCharacter.getX())
+                || (currentY % Utilities.SPATIAL_GRID_CELL_SIZE != playerCharacter.getY())){
+            Signal signal = new Signal(playerCharacter, currentX, currentY);
+            signalMail.add(signal);
         }
     }
 

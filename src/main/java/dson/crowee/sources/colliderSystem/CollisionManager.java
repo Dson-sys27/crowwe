@@ -3,6 +3,7 @@ package dson.crowee.sources.colliderSystem;
 import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.Entity;
 import dson.crowee.obj.objects.PlayerCharacter;
+import dson.crowee.sources.graphicSource.singleGraphicManagers.UIGraphicsManager;
 
 import java.util.*;
 
@@ -14,8 +15,8 @@ public class CollisionManager {
     public static void setTriggerSystemOnWork(){
         signalMail = new ArrayDeque<>();
 
-        heigth = Utilities.worldMap.length / Utilities.SPATIAL_GRID_CELL_SIZE;
-        width = Utilities.worldMap[0].length / Utilities.SPATIAL_GRID_CELL_SIZE;
+        heigth = Utilities.worldMap.length * Utilities.SPRITE_SIZE / Utilities.SPATIAL_GRID_CELL_SIZE;
+        width = Utilities.worldMap.length * Utilities.SPRITE_SIZE  / Utilities.SPATIAL_GRID_CELL_SIZE;
 
         spatialGrid = new ArrayList[heigth][width];
 
@@ -35,9 +36,18 @@ public class CollisionManager {
             int entityX = entity.getTrigger().getTriggerX();
             int entityY = entity.getTrigger().getTriggerY();
 
-            if(playerTrigger.onCollision(entityX, entityY)){
+            if(col != oldCol || row != oldRow)
+                spatialGrid[row][col].remove(playerOnMotion);
+
+            if(playerTrigger.onCollision(entity.getTrigger())){
                 //TODO : handle trigger event
                 System.out.println("chocao");
+                int currentHealth = ((PlayerCharacter)playerOnMotion).getHeathScore();
+                ((PlayerCharacter) playerOnMotion).setHeathScore(currentHealth - 10);
+                UIGraphicsManager.setHealthValue(1 + (100 / 17) - (currentHealth / 17));
+                if(currentHealth <= 0)
+                    UIGraphicsManager.setHealthValue(6);
+                System.out.println("" + currentHealth);
             }
         }
     }
@@ -50,12 +60,11 @@ public class CollisionManager {
             int oldCol = Math.max(0, Math.min(width - 1, currentSignal.getPreviousX() / Utilities.SPATIAL_GRID_CELL_SIZE));
             int oldRow = Math.max(0, Math.min(heigth - 1, currentSignal.getPreviousY() / Utilities.SPATIAL_GRID_CELL_SIZE));
 
-            int newCol = Math.max(0, Math.min(heigth - 1, currentSignal.getX() / Utilities.SPATIAL_GRID_CELL_SIZE));
-            int newRow = Math.max(0, Math.min(width - 1, currentSignal.getY() / Utilities.SPATIAL_GRID_CELL_SIZE));
+            int newCol = Math.max(0, Math.min(width - 1, currentSignal.getX() / Utilities.SPATIAL_GRID_CELL_SIZE));
+            int newRow = Math.max(0, Math.min(heigth - 1, currentSignal.getY() / Utilities.SPATIAL_GRID_CELL_SIZE));
 
-            if(oldCol != newCol || oldRow != newRow){
-                updateEntitiesOnSpatialGrid(playerOnMotion, newRow, newCol, oldRow, oldCol);
-            }
+            updateEntitiesOnSpatialGrid(playerOnMotion, newRow, newCol, oldRow, oldCol);
+
         }
     }
 
@@ -77,4 +86,7 @@ public class CollisionManager {
         spatialGrid[row][col].add(entity);
     }
 
+    public static void removeEntityFromSpatianCell(Entity entity){
+
+    }
 }

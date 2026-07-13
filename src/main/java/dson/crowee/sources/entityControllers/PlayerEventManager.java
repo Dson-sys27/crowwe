@@ -14,6 +14,7 @@ import java.util.Queue;
 public class PlayerEventManager {
     private static PlayerCharacter playerCharacter;
     private static ArrayDeque<Signal> signalMail;
+    private static ArrayDeque<Event> eventMail;
 
 
     public static void setPlayerKeyEventManagerOnWork(PlayerCharacter player){
@@ -44,11 +45,10 @@ public class PlayerEventManager {
 
         playerCharacter.getTrigger().udatePosition();
 
-        if((currentX % Utilities.SPATIAL_GRID_CELL_SIZE != playerCharacter.getX())
-                || (currentY % Utilities.SPATIAL_GRID_CELL_SIZE != playerCharacter.getY())){
-            Signal signal = new Signal(playerCharacter, currentX, currentY);
-            signalMail.add(signal);
-        }
+
+        Signal signal = new Signal(playerCharacter, currentX, currentY);
+        signalMail.add(signal);
+
     }
 
     public static int getX(){

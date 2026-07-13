@@ -3,6 +3,7 @@ package dson.crowee.sources.graphicSource.singleGraphicManagers;
 import dson.crowee.globals.LogViews;
 import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.PlayerCharacter;
+import dson.crowee.sources.graphicSource.UI.SpriteSheet;
 import dson.crowee.sources.sourceTools.MapRenderer;
 
 import javax.imageio.ImageIO;
@@ -18,22 +19,20 @@ public class WorldMapGraphicsManager {
     private final static int SPRITE_SCALE = Utilities.SPRITE_SIZE * Utilities.SCALE_SIZE;
 
     public static void setWorldMapGraphicsOnWork(){
+        worldMapImages = new ArrayList<>();
+        SpriteSheet spriteSheet = null;
         try{
             worldMap = MapRenderer.renderMap("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\map\\mapSource");
+             spriteSheet = new SpriteSheet("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\spritesheet_1.png", 32);
         }catch(Exception e){
+            e.printStackTrace();
+        }
 
-        }
-        worldMapImages = new ArrayList<>();
-        Image image = null;
-        Image im2 = null;
-        try{
-            image = ImageIO.read(new File("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\euclideus_floor.png"));
-            im2 = ImageIO.read(new File("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\euclideus_grass.png"));
-        }catch(IOException e){
-            LogViews.dropGraphicsCoreWarning("");
-        }
-        worldMapImages.add(image);
-        worldMapImages.add(im2);
+        Image[][] sprites = spriteSheet.getSpriteSheetImages();
+        for(int i = 0; i < 10; i++)
+            for(int j = 0; j< 10; j++)
+                worldMapImages.add(sprites[i][j]);
+
     }
 
     public static void drawWorldMap(Graphics2D graphics){
@@ -54,7 +53,7 @@ public class WorldMapGraphicsManager {
         for(int j = initialScreenPositionY; j < finalScreenPositionY ; j ++)
             for(int i = initialScreenPositionX; i < finalScreenPositionX; i ++)
                 if(i >= 0 && j >= 0)
-                    graphics.drawImage(worldMapImages.get(worldMap[i][j]),
+                    graphics.drawImage(worldMapImages.get(worldMap[j][i]),
                             i * Utilities.SPRITE_SIZE,
                             j * Utilities.SPRITE_SIZE,
                             SPRITE_SCALE,

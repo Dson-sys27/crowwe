@@ -4,7 +4,7 @@ import dson.crowee.sources.colliderSystem.Trigger;
 
 public class PlayerCharacter extends Entity{
 
-      private int heathScore;
+      public int heathScore;
 
       public PlayerCharacter(FormalCode formalCode){
             super(formalCode);
@@ -12,6 +12,14 @@ public class PlayerCharacter extends Entity{
             super.setY(0);
             super.setTrigger(new Trigger<>(this));
             this.heathScore = 100;
+      }
+
+      public void setHeathScore(int heathScore){
+            this.heathScore = heathScore;
+      }
+
+      public int getHeathScore(){
+            return heathScore;
       }
 
 }

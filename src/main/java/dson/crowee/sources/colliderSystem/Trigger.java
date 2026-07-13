@@ -6,7 +6,7 @@ import java.awt.*;
 
 public class Trigger <T extends Entity>{
     private final T entityOnTrigger;
-    private int triggerX, triggerY, heigth, width;
+    private int triggerX, triggerY, height, width;
 
     public Trigger(T entityOnTrigger){
         this.entityOnTrigger = entityOnTrigger;
@@ -24,9 +24,12 @@ public class Trigger <T extends Entity>{
         triggerY = entityOnTrigger.getY();
     }
 
-    public boolean onCollision(int x, int y){
-        return (x >= triggerX && x <= (width + triggerX))
-                && (y >= triggerY && y <= (heigth + triggerY));
+    public boolean onCollision(Trigger<?> other) {
+        // Nota: Te recomiendo cambiar tu variable 'heigth' por 'height' (la forma correcta en inglés)
+        return (this.triggerX < other.triggerX + other.width) &&
+                (this.triggerX + this.width > other.triggerX) &&
+                (this.triggerY < other.triggerY + other.height) &&
+                (this.triggerY + this.height > other.triggerY);
     }
 
     public int getWidth() {
@@ -38,11 +41,11 @@ public class Trigger <T extends Entity>{
     }
 
     public int getHeigth() {
-        return heigth;
+        return height;
     }
 
-    public void setHeigth(int heigth) {
-        this.heigth = heigth;
+    public void setHeigth(int height) {
+        this.height = height;
     }
 
     public T getEntityOnTrigger() {

@@ -1,24 +1,19 @@
 package dson.crowee.sources.graphicSource;
 
-import dson.crowee.globals.LogViews;
 import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.PlayerCharacter;
 import dson.crowee.sources.colliderSystem.CollisionManager;
 import dson.crowee.sources.graphicSource.UI.InitializedCanvas;
-import dson.crowee.sources.graphicSource.singleGraphicManagers.PlayerCharacterGraphicsController;
-import dson.crowee.sources.graphicSource.singleGraphicManagers.PropsGraphicsController;
-import dson.crowee.sources.graphicSource.singleGraphicManagers.UIGraphicsManager;
-import dson.crowee.sources.graphicSource.singleGraphicManagers.WorldMapGraphicsManager;
+import dson.crowee.sources.graphicSource.DrawerClasses.PlayerCharacterGraphicsDrawer;
+import dson.crowee.sources.graphicSource.DrawerClasses.PropsGraphicsDrawer;
+import dson.crowee.sources.graphicSource.DrawerClasses.UIGraphicsDrawer;
+import dson.crowee.sources.graphicSource.DrawerClasses.WorldMapGraphicsDrawer;
 import dson.crowee.sources.keyboardHandler.KeyboardListener;
 import dson.crowee.sources.entityControllers.PlayerEventManager;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.geom.AffineTransform;
 import java.awt.image.BufferStrategy;
-import java.awt.image.BufferedImage;
-import java.io.File;
-import java.io.IOException;
 
 public class GraphicCoreManager implements Runnable{
 
@@ -38,12 +33,11 @@ public class GraphicCoreManager implements Runnable{
     }
 
     private static synchronized void beginUIThread(){
-        //TODO: UI Builds
         canvas = new InitializedCanvas();
 
         onExecution = Boolean.TRUE;
 
-        graphicsControllerThread = new Thread(graphicCoreManager, "game");
+        graphicsControllerThread = new Thread(graphicCoreManager);
         graphicsControllerThread.start();
     }
 
@@ -89,22 +83,31 @@ public class GraphicCoreManager implements Runnable{
 
         Graphics2D graphics = (Graphics2D) bufferStrategy.getDrawGraphics();
 
-        PlayerCharacter player = PlayerCharacterGraphicsController.getPlayerCharacter();
+        PlayerCharacter player = PlayerCharacterGraphicsDrawer.getPlayerCharacter();
 
         int camX = player.getX() - (Utilities.SCREEN_WIDTH / 2) + (Utilities.SPRITE_SIZE / 2);
         int camY = player.getY() - (Utilities.SCREEN_HEIGHT / 2) + (Utilities.SPRITE_SIZE / 2);
+
+        if(camX <= 0)
+            camX = 0;
+        if(camY <= 0)
+            camY = 0;
+        if(camY >= Utilities.worldMap[0].length * Utilities.SPRITE_SIZE)
+            camY = Utilities.worldMap[0].length * Utilities.SPRITE_SIZE;
+        if(camX >= Utilities.worldMap.length * Utilities.SPRITE_SIZE)
+            camX = Utilities.worldMap.length * Utilities.SPRITE_SIZE;
 
         AffineTransform originalCameraPosition = graphics.getTransform();
 
         graphics.translate(-camX, -camY);
 
-        WorldMapGraphicsManager.drawWorldMap(graphics);
-        PlayerCharacterGraphicsController.drawObject(graphics);
-        PropsGraphicsController.drawObjects(graphics);
+        WorldMapGraphicsDrawer.drawWorldMap(graphics);
+        PlayerCharacterGraphicsDrawer.drawObject(graphics);
+        PropsGraphicsDrawer.drawObjects(graphics);
 
         graphics.setTransform(originalCameraPosition);
 
-        UIGraphicsManager.drawUIObjects(graphics);
+        UIGraphicsDrawer.drawUIObjects(graphics);
 
         graphics.dispose();
         bufferStrategy.show();

@@ -1,4 +1,4 @@
-package dson.crowee.sources.graphicSource.singleGraphicManagers;
+package dson.crowee.sources.graphicSource.DrawerClasses;
 
 import dson.crowee.obj.objects.Entity;
 import dson.crowee.obj.objects.FormalCode;
@@ -12,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class PropsGraphicsController {
+public class PropsGraphicsDrawer {
     private static TreeMap<Integer, Entity> props;
 
     public static void setPropsGraphicsManagerOnWork(){

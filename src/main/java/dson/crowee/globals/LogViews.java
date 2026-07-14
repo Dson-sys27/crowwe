@@ -1,12 +1,13 @@
 package dson.crowee.globals;
 
 import dson.crowee.sources.graphicSource.GraphicCoreManager;
+import dson.crowee.sources.graphicSource.DrawerClasses.UIGraphicsDrawer;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 public class LogViews {
     private static final Logger graphicLogger = LoggerFactory.getLogger(GraphicCoreManager.class);
-    private static Logger playerCharacterGraphicsControllerLogger;
+    private static final Logger playerCharacterGraphicsControllerLogger = LoggerFactory.getLogger(UIGraphicsDrawer.class);
 
 
     public static void dropGraphicsCoreWarning(String image){

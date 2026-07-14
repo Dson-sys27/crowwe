@@ -1,4 +1,4 @@
-package dson.crowee.sources.graphicSource.singleGraphicManagers;
+package dson.crowee.sources.graphicSource.DrawerClasses;
 
 import dson.crowee.obj.objects.PlayerCharacter;
 import dson.crowee.sources.colliderSystem.Trigger;
@@ -11,7 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-public class PlayerCharacterGraphicsController {
+public class PlayerCharacterGraphicsDrawer {
     private static PlayerCharacter playerCharacter;
 
 
@@ -32,11 +32,10 @@ public class PlayerCharacterGraphicsController {
         playerCharacter.setY(240);
     }
 
-    public static synchronized void drawObject(Graphics2D graphics) {
+    public static void drawObject(Graphics2D graphics) {
         List<Image> images = playerCharacter.getSpriteImages();
         Trigger trigger = playerCharacter.getTrigger();
         graphics.drawImage(images.get(0), playerCharacter.getX(), playerCharacter.getY(), 64, 64, null);
-        trigger.render(graphics);
     }
 
     public static PlayerCharacter getPlayerCharacter(){

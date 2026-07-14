@@ -33,4 +33,6 @@ public class Utilities {
 
     public static final int SPATIAL_GRID_CELL_SIZE = 128;
 
+    public static int WAIT_TIME = 10;
+
 }

@@ -1,21 +1,19 @@
-package dson.crowee.sources.graphicSource.singleGraphicManagers;
+package dson.crowee.sources.graphicSource.DrawerClasses;
 
-import dson.crowee.globals.LogViews;
 import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.PlayerCharacter;
 import dson.crowee.sources.graphicSource.UI.SpriteSheet;
 import dson.crowee.sources.sourceTools.MapRenderer;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class WorldMapGraphicsManager {
+public class WorldMapGraphicsDrawer {
 
     private static int[][] worldMap;
     private static ArrayList<Image> worldMapImages;
+    private static int worldHeigth;
+    private static int worldWidth;
     private final static int SPRITE_SCALE = Utilities.SPRITE_SIZE * Utilities.SCALE_SIZE;
 
     public static void setWorldMapGraphicsOnWork(){
@@ -28,6 +26,9 @@ public class WorldMapGraphicsManager {
             e.printStackTrace();
         }
 
+        worldHeigth = worldMap.length;
+        worldWidth = worldMap[0].length;
+
         Image[][] sprites = spriteSheet.getSpriteSheetImages();
         for(int i = 0; i < 10; i++)
             for(int j = 0; j< 10; j++)
@@ -36,7 +37,7 @@ public class WorldMapGraphicsManager {
     }
 
     public static void drawWorldMap(Graphics2D graphics){
-        PlayerCharacter player = PlayerCharacterGraphicsController.getPlayerCharacter();
+        PlayerCharacter player = PlayerCharacterGraphicsDrawer.getPlayerCharacter();
 
         int camX = player.getX() - (Utilities.SCREEN_WIDTH / 2) + (Utilities.SPRITE_SIZE / 2);
         int camY = player.getY() - (Utilities.SCREEN_HEIGHT / 2) + (Utilities.SPRITE_SIZE / 2);
@@ -50,9 +51,17 @@ public class WorldMapGraphicsManager {
         int finalScreenPositionY = initialScreenPositionY +
                 (Utilities.SCREEN_HEIGHT / Utilities.SPRITE_SIZE);
 
+        if(initialScreenPositionX <= 0)
+            initialScreenPositionX = 0;
+        if(initialScreenPositionY <= 0)
+            initialScreenPositionY = 0;
+        if(finalScreenPositionX >= worldWidth)
+            finalScreenPositionX = worldWidth;
+        if(finalScreenPositionY > worldHeigth)
+            finalScreenPositionY = worldHeigth;
+
         for(int j = initialScreenPositionY; j < finalScreenPositionY ; j ++)
             for(int i = initialScreenPositionX; i < finalScreenPositionX; i ++)
-                if(i >= 0 && j >= 0)
                     graphics.drawImage(worldMapImages.get(worldMap[j][i]),
                             i * Utilities.SPRITE_SIZE,
                             j * Utilities.SPRITE_SIZE,

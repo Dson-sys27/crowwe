@@ -1,14 +1,11 @@
-package dson.crowee.sources.graphicSource.singleGraphicManagers;
+package dson.crowee.sources.graphicSource.DrawerClasses;
 
 import dson.crowee.sources.graphicSource.UI.SpriteSheet;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
-public class UIGraphicsManager {
+public class UIGraphicsDrawer {
 
     private static ArrayList<Image> UIImages;
     private static int healthValue;

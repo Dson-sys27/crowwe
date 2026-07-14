@@ -3,7 +3,9 @@ package dson.crowee.sources.colliderSystem;
 import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.Entity;
 import dson.crowee.obj.objects.PlayerCharacter;
-import dson.crowee.sources.graphicSource.singleGraphicManagers.UIGraphicsManager;
+import dson.crowee.sources.entityControllers.Event;
+import dson.crowee.sources.entityControllers.EventCode;
+import dson.crowee.sources.entityControllers.PlayerEventManager;
 
 import java.util.*;
 
@@ -33,21 +35,13 @@ public class CollisionManager {
             if(entity == playerOnMotion)
                 continue;
 
-            int entityX = entity.getTrigger().getTriggerX();
-            int entityY = entity.getTrigger().getTriggerY();
-
             if(col != oldCol || row != oldRow)
                 spatialGrid[row][col].remove(playerOnMotion);
 
             if(playerTrigger.onCollision(entity.getTrigger())){
-                //TODO : handle trigger event
-                System.out.println("chocao");
-                int currentHealth = ((PlayerCharacter)playerOnMotion).getHeathScore();
-                ((PlayerCharacter) playerOnMotion).setHeathScore(currentHealth - 10);
-                UIGraphicsManager.setHealthValue(1 + (100 / 17) - (currentHealth / 17));
-                if(currentHealth <= 0)
-                    UIGraphicsManager.setHealthValue(6);
-                System.out.println("" + currentHealth);
+                //TODO : handle trigger events
+                Event event = new Event(entity, EventCode.DAMAGE_EVENT);
+                PlayerEventManager.sendEvent(event);
             }
         }
     }

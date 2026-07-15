@@ -15,15 +15,8 @@ public class SpriteModel {
         this.x = x * spriteSize;
         this.y = y * spriteSize;
 
-        int[] pixelMapFromSpriteSheet = spriteSheet.getPixelMap();
-        this.spriteSheet = spriteSheet;
-        for(int j = 0; j < spriteSize; j++)
-            for(int i = 0; i < spriteSize; i++){
-                pixelMap[i + j * spriteSize] =
-                        pixelMapFromSpriteSheet[(i * this.x) *
-                                (j* this.y) *
-                                spriteSheet.getWidth()];
-            }
+        //int[] pixelMapFromSpriteSheet = spriteSheet.getPixelMap();
+
 
     }
 

@@ -1,8 +1,9 @@
-package dson.crowee.sources.graphicSource.singleGraphicManagers;
+package dson.crowee.sources.graphicSource.DrawerClasses;
 
 import dson.crowee.obj.objects.Entity;
 import dson.crowee.obj.objects.FormalCode;
 import dson.crowee.obj.objects.Prop;
+import dson.crowee.sources.colliderSystem.CollisionManager;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
@@ -11,7 +12,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.TreeMap;
 
-public class PropsGraphicsController {
+public class PropsGraphicsDrawer {
     private static TreeMap<Integer, Entity> props;
 
     public static void setPropsGraphicsManagerOnWork(){
@@ -23,6 +24,7 @@ public class PropsGraphicsController {
         if(farola == null)
             farola = new Prop(FormalCode.ONE_LIGHT_STREETLIGHT, 50, 50);
         props.put(0, farola);
+        CollisionManager.setEntityOnSpatialGrid(farola);
         ArrayList<Image> spritesImages = props.get(0).getSpriteImages();
         Image farolaImage = null;
         try{

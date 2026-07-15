@@ -1,43 +1,43 @@
-package dson.crowee.sources.graphicSource.singleGraphicManagers;
+package dson.crowee.sources.graphicSource.DrawerClasses;
 
-import dson.crowee.globals.LogViews;
 import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.PlayerCharacter;
+import dson.crowee.sources.graphicSource.UI.SpriteSheet;
 import dson.crowee.sources.sourceTools.MapRenderer;
 
-import javax.imageio.ImageIO;
 import java.awt.*;
-import java.io.File;
-import java.io.IOException;
 import java.util.ArrayList;
 
-public class WorldMapGraphicsManager {
+public class WorldMapGraphicsDrawer {
 
     private static int[][] worldMap;
     private static ArrayList<Image> worldMapImages;
+    private static int worldHeigth;
+    private static int worldWidth;
     private final static int SPRITE_SCALE = Utilities.SPRITE_SIZE * Utilities.SCALE_SIZE;
 
     public static void setWorldMapGraphicsOnWork(){
+        worldMapImages = new ArrayList<>();
+        SpriteSheet spriteSheet = null;
         try{
             worldMap = MapRenderer.renderMap("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\map\\mapSource");
+             spriteSheet = new SpriteSheet("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\spritesheet_1.png", 32);
         }catch(Exception e){
+            e.printStackTrace();
+        }
 
-        }
-        worldMapImages = new ArrayList<>();
-        Image image = null;
-        Image im2 = null;
-        try{
-            image = ImageIO.read(new File("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\euclideus_floor.png"));
-            im2 = ImageIO.read(new File("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\euclideus_grass.png"));
-        }catch(IOException e){
-            LogViews.dropGraphicsCoreWarning("");
-        }
-        worldMapImages.add(image);
-        worldMapImages.add(im2);
+        worldHeigth = worldMap.length;
+        worldWidth = worldMap[0].length;
+
+        Image[][] sprites = spriteSheet.getSpriteSheetImages();
+        for(int i = 0; i < 10; i++)
+            for(int j = 0; j< 10; j++)
+                worldMapImages.add(sprites[i][j]);
+
     }
 
     public static void drawWorldMap(Graphics2D graphics){
-        PlayerCharacter player = PlayerCharacterGraphicsController.getPlayerCharacter();
+        PlayerCharacter player = PlayerCharacterGraphicsDrawer.getPlayerCharacter();
 
         int camX = player.getX() - (Utilities.SCREEN_WIDTH / 2) + (Utilities.SPRITE_SIZE / 2);
         int camY = player.getY() - (Utilities.SCREEN_HEIGHT / 2) + (Utilities.SPRITE_SIZE / 2);
@@ -46,15 +46,23 @@ public class WorldMapGraphicsManager {
         int initialScreenPositionY = camY / Utilities.SPRITE_SIZE;
 
         int finalScreenPositionX = initialScreenPositionX +
-                (Utilities.SCREEN_WIDTH / Utilities.SPRITE_SIZE);
+                Utilities.MAP_DRAWER_OFFSET * (Utilities.SCREEN_WIDTH / Utilities.SPRITE_SIZE);
 
         int finalScreenPositionY = initialScreenPositionY +
-                (Utilities.SCREEN_HEIGHT / Utilities.SPRITE_SIZE);
+                Utilities.MAP_DRAWER_OFFSET * (Utilities.SCREEN_HEIGHT / Utilities.SPRITE_SIZE);
+
+        if(initialScreenPositionX <= 0)
+            initialScreenPositionX = 0;
+        if(initialScreenPositionY <= 0)
+            initialScreenPositionY = 0;
+        if(finalScreenPositionY >= worldHeigth)
+            finalScreenPositionY = worldHeigth;
+        if(finalScreenPositionX >= worldWidth)
+            finalScreenPositionX = worldWidth;
 
         for(int j = initialScreenPositionY; j < finalScreenPositionY ; j ++)
             for(int i = initialScreenPositionX; i < finalScreenPositionX; i ++)
-                if(i >= 0 && j >= 0)
-                    graphics.drawImage(worldMapImages.get(worldMap[i][j]),
+                    graphics.drawImage(worldMapImages.get(worldMap[j][i]),
                             i * Utilities.SPRITE_SIZE,
                             j * Utilities.SPRITE_SIZE,
                             SPRITE_SCALE,

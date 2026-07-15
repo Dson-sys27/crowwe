@@ -29,10 +29,6 @@ public class MapRenderer {
             }
         }
 
-        for(int i = 20; i < 60; i++)
-            for(int j = 20; j < 70; j++)
-                matrizMapa[i][j] = 1;
-
         return matrizMapa;
     }
 }

@@ -17,8 +17,8 @@ public class CollisionManager {
     public static void setTriggerSystemOnWork(){
         signalMail = new ArrayDeque<>();
 
-        heigth = Utilities.worldMap.length * Utilities.SPRITE_SIZE / Utilities.SPATIAL_GRID_CELL_SIZE;
-        width = Utilities.worldMap.length * Utilities.SPRITE_SIZE  / Utilities.SPATIAL_GRID_CELL_SIZE;
+        heigth = Utilities.WORLD_MAP.length * Utilities.SPRITE_SIZE / Utilities.SPATIAL_GRID_CELL_SIZE;
+        width = Utilities.WORLD_MAP.length * Utilities.SPRITE_SIZE  / Utilities.SPATIAL_GRID_CELL_SIZE;
 
         spatialGrid = new ArrayList[heigth][width];
 

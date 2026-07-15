@@ -85,17 +85,20 @@ public class GraphicCoreManager implements Runnable{
 
         PlayerCharacter player = PlayerCharacterGraphicsDrawer.getPlayerCharacter();
 
+        graphics.clearRect(0, 0, Utilities.SCREEN_WIDTH, Utilities.SCREEN_HEIGHT);
+
         int camX = player.getX() - (Utilities.SCREEN_WIDTH / 2) + (Utilities.SPRITE_SIZE / 2);
         int camY = player.getY() - (Utilities.SCREEN_HEIGHT / 2) + (Utilities.SPRITE_SIZE / 2);
+
+        int maxCamX = (Utilities.WORLD_MAP[0].length * Utilities.SPRITE_SIZE) - Utilities.SCREEN_WIDTH;
+        int maxCamY = (Utilities.WORLD_MAP.length * Utilities.SPRITE_SIZE) - Utilities.SCREEN_HEIGHT;
 
         if(camX <= 0)
             camX = 0;
         if(camY <= 0)
             camY = 0;
-        if(camY >= Utilities.worldMap[0].length * Utilities.SPRITE_SIZE)
-            camY = Utilities.worldMap[0].length * Utilities.SPRITE_SIZE;
-        if(camX >= Utilities.worldMap.length * Utilities.SPRITE_SIZE)
-            camX = Utilities.worldMap.length * Utilities.SPRITE_SIZE;
+        if(camX >= maxCamX) camX = maxCamX;
+        if(camY >= maxCamY) camY = maxCamY;
 
         AffineTransform originalCameraPosition = graphics.getTransform();
 
@@ -112,7 +115,6 @@ public class GraphicCoreManager implements Runnable{
         graphics.dispose();
         bufferStrategy.show();
 
-        graphics.clearRect(0, 0, Utilities.SCREEN_WIDTH, Utilities.SCREEN_HEIGHT);
     }
 
     //getters / setters

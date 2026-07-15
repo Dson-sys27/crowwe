@@ -68,11 +68,13 @@ public class PlayerEventManager {
                     UIGraphicsDrawer.setHealthValue(1 + (100 / 17) - (currentHealth / 17));
                     if(currentHealth <= 0)
                         UIGraphicsDrawer.setHealthValue(6);
-                    System.out.println("" + currentHealth);
+
+                    playerCharacter.setX(currentX);
+                    playerCharacter.setY(currentY);
                 }
             }
 
-            next = tiempoActual + 10;
+            next = tiempoActual + 1;
         }
 
     }

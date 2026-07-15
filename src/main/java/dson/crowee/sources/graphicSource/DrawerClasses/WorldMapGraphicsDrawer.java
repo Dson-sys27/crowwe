@@ -46,19 +46,19 @@ public class WorldMapGraphicsDrawer {
         int initialScreenPositionY = camY / Utilities.SPRITE_SIZE;
 
         int finalScreenPositionX = initialScreenPositionX +
-                (Utilities.SCREEN_WIDTH / Utilities.SPRITE_SIZE);
+                Utilities.MAP_DRAWER_OFFSET * (Utilities.SCREEN_WIDTH / Utilities.SPRITE_SIZE);
 
         int finalScreenPositionY = initialScreenPositionY +
-                (Utilities.SCREEN_HEIGHT / Utilities.SPRITE_SIZE);
+                Utilities.MAP_DRAWER_OFFSET * (Utilities.SCREEN_HEIGHT / Utilities.SPRITE_SIZE);
 
         if(initialScreenPositionX <= 0)
             initialScreenPositionX = 0;
         if(initialScreenPositionY <= 0)
             initialScreenPositionY = 0;
+        if(finalScreenPositionY >= worldHeigth)
+            finalScreenPositionY = worldHeigth;
         if(finalScreenPositionX >= worldWidth)
             finalScreenPositionX = worldWidth;
-        if(finalScreenPositionY > worldHeigth)
-            finalScreenPositionY = worldHeigth;
 
         for(int j = initialScreenPositionY; j < finalScreenPositionY ; j ++)
             for(int i = initialScreenPositionX; i < finalScreenPositionX; i ++)

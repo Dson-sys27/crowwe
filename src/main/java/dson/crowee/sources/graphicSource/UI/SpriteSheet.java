@@ -7,19 +7,20 @@ import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 
 public class SpriteSheet {
     private Integer width, length;
     private Image[][] spriteSheetImages;
     private int spriteSize;
 
-    public SpriteSheet (final String sourcePath, final int spriteSize) throws IOException{
+    public SpriteSheet (final URL sourcePath, final int spriteSize) throws IOException{
         width = spriteSize * 10;
         length = spriteSize * 10;
         this.spriteSize = spriteSize;
         spriteSheetImages = new Image[length / spriteSize][width / spriteSize];
         BufferedImage spriteImage;
-        spriteImage = ImageIO.read(new File(sourcePath));
+        spriteImage = ImageIO.read(sourcePath);
 
         for(int i = 0; i < length / spriteSize; i++)
             for(int j = 0; j < width / spriteSize; j++){

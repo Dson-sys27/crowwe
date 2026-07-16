@@ -1,8 +1,10 @@
 package dson.crowee.sources.graphicSource.DrawerClasses;
 
+import dson.crowee.globals.Utilities;
 import dson.crowee.sources.graphicSource.UI.SpriteSheet;
 
 import java.awt.*;
+import java.net.URL;
 import java.util.ArrayList;
 
 public class UIGraphicsDrawer {
@@ -15,7 +17,8 @@ public class UIGraphicsDrawer {
         healthValue = 1;
         SpriteSheet UISprites = null;
         try{
-            UISprites = new SpriteSheet("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\UI\\UI_spritesheet.png", 16);
+            URL sourcePath = UIGraphicsDrawer.class.getResource(Utilities.UI_SPRITESHEET);
+            UISprites = new SpriteSheet(sourcePath, 16);
         }catch(Exception e){
             System.out.println("gg");
         }

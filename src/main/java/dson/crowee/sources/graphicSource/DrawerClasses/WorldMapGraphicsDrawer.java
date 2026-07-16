@@ -5,7 +5,11 @@ import dson.crowee.obj.objects.PlayerCharacter;
 import dson.crowee.sources.graphicSource.UI.SpriteSheet;
 import dson.crowee.sources.sourceTools.MapRenderer;
 
+import javax.imageio.ImageIO;
 import java.awt.*;
+import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 
 public class WorldMapGraphicsDrawer {
@@ -20,8 +24,9 @@ public class WorldMapGraphicsDrawer {
         worldMapImages = new ArrayList<>();
         SpriteSheet spriteSheet = null;
         try{
-            worldMap = MapRenderer.renderMap("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\map\\mapSource");
-             spriteSheet = new SpriteSheet("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\sprites\\bg\\spritesheet_1.png", 32);
+            worldMap = Utilities.WORLD_MAP;
+            URL spriteSheetURL = WorldMapGraphicsDrawer.class.getResource(Utilities.SPRITESHEET_1_R_PATH);
+             spriteSheet = new SpriteSheet(spriteSheetURL, 32);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -42,14 +47,14 @@ public class WorldMapGraphicsDrawer {
         int camX = player.getX() - (Utilities.SCREEN_WIDTH / 2) + (Utilities.SPRITE_SIZE / 2);
         int camY = player.getY() - (Utilities.SCREEN_HEIGHT / 2) + (Utilities.SPRITE_SIZE / 2);
 
-        int initialScreenPositionX = camX / Utilities.SPRITE_SIZE;
-        int initialScreenPositionY = camY / Utilities.SPRITE_SIZE;
+        int initialScreenPositionX = camX / Utilities.SPRITE_SIZE - Utilities.CAMERA_DISPLAY_OFFSET_X;
+        int initialScreenPositionY = camY / Utilities.SPRITE_SIZE - Utilities.CAMERA_DISPLAY_OFFSET_Y;
 
         int finalScreenPositionX = initialScreenPositionX +
-                Utilities.MAP_DRAWER_OFFSET * (Utilities.SCREEN_WIDTH / Utilities.SPRITE_SIZE);
+                Utilities.CAMERA_DISPLAY_OFFSET_X * (Utilities.SCREEN_WIDTH / Utilities.SPRITE_SIZE);
 
         int finalScreenPositionY = initialScreenPositionY +
-                Utilities.MAP_DRAWER_OFFSET * (Utilities.SCREEN_HEIGHT / Utilities.SPRITE_SIZE);
+                Utilities.CAMERA_DISPLAY_OFFSET_Y * (Utilities.SCREEN_HEIGHT / Utilities.SPRITE_SIZE);
 
         if(initialScreenPositionX <= 0)
             initialScreenPositionX = 0;

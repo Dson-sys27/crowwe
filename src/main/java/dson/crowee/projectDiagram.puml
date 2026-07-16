@@ -1,0 +1,211 @@
+@startuml
+class dson.crowee.globals.LogViews {
+- {static} Logger graphicLogger
++ {static} void dropGraphicsCoreWarning(String)
+}
+
+
+class dson.crowee.obj.objects.UI.Util {
+~ {static} int WINDOW_WIDTH
+~ {static} int WINDOW_HEIGHT
+~ {static} int SPRITESHEET_STANDARD_WIDTH
+~ {static} int SPRITESHEET_STANDARD_LENGTH
+~ {static} int SPRITE_MODEL_SIZE_1
+}
+
+class dson.crowee.sources.DataStorageManager {
+- {static} ObjectMapper objectMapper
++ {static} void loadObjectMapper()
++ {static} void storageObjectAsJSONFile(Object)
+- {static} void storageAction()
+}
+
+
+class dson.crowee.sources.entityControllers.Util {
+~ {static} int PLAYER_SPEED
+}
+
+class dson.crowee.localStorage.itemInstances.containers.CurrentPlayerList {
+- {static} Set<PlayerCharacter> playerSet
+}
+
+class dson.crowee.sources.entityControllers.PlayerKeyEventManager {
+- {static} KeyboardListener keyboardListener
+- {static} PlayerCharacter playerCharacter
++ {static} void setPlayerKeyEventManagerOnWork(PlayerCharacter)
++ {static} void updatePlayerAction()
++ {static} int getX()
++ {static} int getY()
+}
+
+
+class dson.crowee.sources.graphicSource.singleGraphicManagers.PlayerCharacterGraphicsController {
+- {static} PlayerCharacter playerCharacter
++ {static} void setPlayerCharacterGraphicsControllerOnWork()
++ {static} void drawObject(Graphics)
+}
+
+
+class dson.crowee.sources.graphicSource.ScreenManager {
+- {static} int[][] screenGrid
+- int[] mapGrid
+- int[] spriteGrid
++ {static} void setScreenManagerOnWork()
+}
+
+
+class dson.crowee.obj.objects.Item {
+- String formalCode
+- Integer internalCode
+- String formalName
+- String onCarryBy
+- String carrierCode
+- SpriteSheet spriteSheet
++ String getFormalCode()
++ void setFormalCode(String)
++ Integer getInternalCode()
++ void setInternalCode(Integer)
++ String getFormalName()
++ void setFormalName(String)
++ String getOnCarryBy()
++ void setOnCarryBy(String)
++ String getCarrierCode()
++ void setCarrierCode(String)
+}
+
+
+class dson.crowee.obj.objects.Util {
+}
+class dson.crowee.obj.objects.UI.InitializedCanvas {
+- JFrame mainWindow
+- GraphicCoreManager graphicCoreManager
+- void setUIOnExecution()
++ void paint(Graphics)
+}
+
+
+class dson.crowee.sources.GlobalCroweeManager {
++ {static} void startDaShit()
+}
+
+class dson.crowee.obj.objects.mobs.H27 {
+}
+class dson.crowee.sources.graphicSource.Util {
+~ {static} int NS_PER_SEC
+~ {static} byte FPS
+~ {static} double NS_PER_FRAME
+~ {static} int SCREEN_WIDTH
+~ {static} int SCREEN_HEIGHT
+~ {static} int SPRITE_SIZE
+~ {static} int SCALE_SIZE
+}
+
+class dson.crowee.obj.objects.PlayerCharacter {
+}
+class dson.crowee.obj.objects.UI.SpriteSheet {
+- Integer width
+- int[] pixelMap
++ Integer getWidth()
++ void setWidth(Integer)
++ Integer getLength()
++ void setLength(Integer)
++ int[] getPixelMap()
++ void setPixelMap(int[])
+}
+
+
+class dson.crowee.sources.keyboardHandler.KeyboardListener {
+- {static} boolean[] keyCatalogue
+- {static} KeyboardListener keyboardListener
++ {static} void initializeKeyboardListener()
++ void keyTyped(KeyEvent)
++ void keyPressed(KeyEvent)
++ void keyReleased(KeyEvent)
++ {static} boolean getKey(int)
++ {static} KeyboardListener getKeyboardListener()
+}
+
+
+abstract class dson.crowee.obj.objects.Mob {
+}
+class dson.crowee.sources.colliderSystem.CollisionManager {
+- List<Entity>[][] quadTreeGrid
+}
+
+class dson.crowee.Main {
++ {static} void main()
+}
+
+class dson.crowee.sources.colliderSystem.Trigger {
+- T entityOnTrigger
+- int triggerX
++ void render(Graphics)
+}
+
+
+abstract class dson.crowee.obj.objects.Entity {
+- String formalCode
+- Integer internalCode
+- String formmalName
+- ArrayList<Image> spriteImages
+- int x
+- Trigger trigger
++ String getFormalCode()
++ void setFormalCode(String)
++ Integer getInternalCode()
++ void setInternalCode(Integer)
++ String getFormmalName()
++ void setFormmalName(String)
++ ArrayList<Image> getSpriteImage()
++ void setSpriteImage(Image,int)
++ int getX()
++ void setX(int)
++ int getY()
++ void setY(int)
++ Trigger getTrigger()
++ void setTrigger(Trigger)
+}
+
+
+class dson.crowee.sources.graphicSource.GraphicCoreManager {
+- {static} GraphicCoreManager graphicCoreManager
+- {static} Thread graphicsControllerThread
+- {static} Boolean onExecution
+- {static} InitializedCanvas canvas
++ {static} void setGraphicCoreManagerOnWork()
+- {static} void beginUIThread()
++ void stopUIThread()
++ void run()
+- void update()
++ void perform()
++ {static} Boolean getOnExecution()
++ {static} GraphicCoreManager getGraphicCoreManager()
+}
+
+
+class dson.crowee.obj.objects.UI.SpriteModel {
+- int spriteSize
+- int x
+- int[] pixelMap
+- SpriteSheet spriteSheet
+}
+
+class dson.crowee.obj.objects.UI.Screen {
+- int width
+- int[] pixelmap
++ void clean()
++ void show(int,int)
+}
+
+
+class dson.crowee.sources.keyboardHandler.Util {
+~ {static} int LARGEST_KEY_CODE
+}
+
+
+
+dson.crowee.obj.objects.UI.Canvas <|-- dson.crowee.obj.objects.UI.InitializedCanvas
+dson.crowee.obj.objects.Entity <|-- dson.crowee.obj.objects.PlayerCharacter
+java.awt.event.KeyListener <|.. dson.crowee.sources.keyboardHandler.KeyboardListener
+dson.crowee.sources.graphicSource.Runnable <|.. dson.crowee.sources.graphicSource.GraphicCoreManager
+@enduml

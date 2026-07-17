@@ -3,11 +3,9 @@ package dson.crowee.sources.graphicSource;
 import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.PlayerCharacter;
 import dson.crowee.sources.colliderSystem.CollisionManager;
+import dson.crowee.sources.entityControllers.MobsEventManager;
+import dson.crowee.sources.graphicSource.DrawerClasses.*;
 import dson.crowee.sources.graphicSource.UI.InitializedCanvas;
-import dson.crowee.sources.graphicSource.DrawerClasses.PlayerCharacterGraphicsDrawer;
-import dson.crowee.sources.graphicSource.DrawerClasses.PropsGraphicsDrawer;
-import dson.crowee.sources.graphicSource.DrawerClasses.UIGraphicsDrawer;
-import dson.crowee.sources.graphicSource.DrawerClasses.WorldMapGraphicsDrawer;
 import dson.crowee.sources.keyboardHandler.KeyboardListener;
 import dson.crowee.sources.entityControllers.PlayerEventManager;
 
@@ -73,6 +71,7 @@ public class GraphicCoreManager implements Runnable{
         //All game updates
         PlayerEventManager.updatePlayerAction();
         CollisionManager.processSignals();
+        MobsEventManager.updateMobs();
     }
 
     public void perform(){     //To manage what the screen shows
@@ -107,6 +106,7 @@ public class GraphicCoreManager implements Runnable{
         WorldMapGraphicsDrawer.drawWorldMap(graphics);
         PlayerCharacterGraphicsDrawer.drawObject(graphics);
         PropsGraphicsDrawer.drawObjects(graphics);
+        MobsGraphicsDrawer.drawMobs(graphics);
 
         graphics.setTransform(originalCameraPosition);
 

@@ -2,6 +2,7 @@ package dson.crowee.sources.graphicSource.UI;
 
 import dson.crowee.globals.Utilities;
 
+@Deprecated
 public class Screen {
     private int width, length;
     private int[] pixelmap;

@@ -29,7 +29,7 @@ public class CollisionManager {
 
     private static void updateEntitiesOnSpatialGrid(Entity playerOnMotion, int row, int col, int oldRow, int oldCol){
         List<Entity> entitiesOnCell = spatialGrid[row][col];
-        Trigger<PlayerCharacter> playerTrigger = playerOnMotion.getTrigger();
+        Trigger<Entity> playerTrigger = playerOnMotion.getTrigger();
 
         for(Entity entity : entitiesOnCell){
             if(entity == playerOnMotion)

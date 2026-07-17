@@ -11,7 +11,7 @@ public class Prop extends Entity {
         super(formalCode, x, y);
 
         this.setSpriteImages(new ArrayList<>());
-        super.setTrigger(new Trigger<>(this));
+        super.setTrigger(new Trigger<>(this, 32, 32));
 
         super.getTrigger().setTriggerX(super.getX());
         super.getTrigger().setTriggerY(super.getY());

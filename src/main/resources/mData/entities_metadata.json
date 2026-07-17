@@ -1,0 +1,40 @@
+{
+  "PLAYER": {
+    "formalName": "player_1",
+    "spriteSheetRelativePath": "recursos/sprites/player.png",
+    "spriteInitX": 0,
+    "spriteInitY": 0,
+    "spriteEndX": 32,
+    "spriteEndY": 64,
+    "x": 100,
+    "y": 150,
+    "triggerHeight": 50,
+    "triggerWidth": 20
+  },
+
+  "BALDARK" : {
+    "formalName": "baldark",
+    "spriteSheetRelativePath": "recursos/sprites/player.png",
+    "spriteInitX": 0,
+    "spriteInitY": 0,
+    "spriteEndX": 32,
+    "spriteEndY": 64,
+    "x": 100,
+    "y": 150,
+    "triggerHeight": 50,
+    "triggerWidth": 20
+  },
+
+  "H27" : {
+    "formalName": "h27",
+    "spriteSheetRelativePath": "recursos/sprites/player.png",
+    "spriteInitX": 0,
+    "spriteInitY": 0,
+    "spriteEndX": 32,
+    "spriteEndY": 64,
+    "x": 100,
+    "y": 150,
+    "triggerHeight": 50,
+    "triggerWidth": 20
+  }
+}

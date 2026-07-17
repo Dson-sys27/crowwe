@@ -7,10 +7,10 @@ public class PlayerCharacter extends Entity{
       public int heathScore;
 
       public PlayerCharacter(FormalCode formalCode){
-            super(formalCode);
+            super();
             super.setX(0);
             super.setY(0);
-            super.setTrigger(new Trigger<>(this));
+            super.setTrigger(new Trigger<>(this, super.getX(), super.getY()));
             this.heathScore = 100;
       }
 

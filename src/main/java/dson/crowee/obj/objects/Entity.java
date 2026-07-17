@@ -1,6 +1,8 @@
 package dson.crowee.obj.objects;
 
 import dson.crowee.sources.colliderSystem.Trigger;
+import dson.crowee.sources.graphicSource.UI.SpriteModel;
+import dson.crowee.sources.graphicSource.UI.SpriteSheet;
 
 import java.awt.*;
 import java.util.ArrayList;
@@ -9,20 +11,24 @@ public abstract class Entity {
     private FormalCode formalCode;
     private Integer internalCode;
     private String formmalName;
+    @Deprecated
     private ArrayList<Image> spriteImages;
+    private SpriteModel spriteModel;
     private int x, y;
-    private Trigger trigger;
+    private Trigger<Entity> trigger;
+    @Deprecated
     private Boolean onScreen;
 
-    public Entity(FormalCode formalCode){
-        this.formalCode = formalCode;
+    public Entity(){
         this.spriteImages = new ArrayList<Image>();
+
     }
 
     public Entity(FormalCode formalCode, int x, int y){
-        this(formalCode);
-        this.x = x;
-        this.y = y;
+        this();
+        this.formalCode = formalCode;
+        setX(x);
+        setY(y);
     }
 
     public FormalCode getFormalCode() {
@@ -73,11 +79,11 @@ public abstract class Entity {
         this.y = y;
     }
 
-    public Trigger getTrigger() {
+    public Trigger<Entity> getTrigger() {
         return trigger;
     }
 
-    public void setTrigger(Trigger trigger) {
+    public void setTrigger(Trigger<Entity> trigger) {
         this.trigger = trigger;
     }
 

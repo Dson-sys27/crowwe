@@ -74,7 +74,7 @@ public class PlayerEventManager {
                 }
             }
 
-            next = tiempoActual + 1;
+            next = tiempoActual + Utilities.WAIT_TIME;
         }
 
     }

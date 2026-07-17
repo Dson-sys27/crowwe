@@ -8,7 +8,7 @@ public class Trigger <T extends Entity>{
     private final T entityOnTrigger;
     private int triggerX, triggerY, height, width;
 
-    public Trigger(T entityOnTrigger){
+    public Trigger(T entityOnTrigger, int height, int width){
         this.entityOnTrigger = entityOnTrigger;
         triggerX = entityOnTrigger.getX();
         triggerY = entityOnTrigger.getY();

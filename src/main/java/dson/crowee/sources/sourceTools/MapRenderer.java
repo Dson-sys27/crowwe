@@ -1,5 +1,7 @@
 package dson.crowee.sources.sourceTools;
 
+import dson.crowee.globals.LogViews;
+
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
@@ -13,7 +15,7 @@ public class MapRenderer {
         try{
             lineas = Files.readAllLines(Paths.get(filePath));
         } catch (IOException e) {
-
+            LogViews.dropMapRendererError(filePath);
         }
 
         int filas = lineas.size();

@@ -2,7 +2,7 @@ package dson.crowee.localStorage.entityMetadata;
 
 public record EntityRecord(
         String formalName,
-        String spriteSheetRelatievPath,
+        String spriteSheetRelativePath,
         int spriteInitX,
         int spriteInitY,
         int spriteEndX,

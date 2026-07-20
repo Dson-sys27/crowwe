@@ -105,7 +105,7 @@ public class GraphicCoreManager implements Runnable{
 
         WorldMapGraphicsDrawer.drawWorldMap(graphics);
         PlayerCharacterGraphicsDrawer.drawObject(graphics);
-        PropsGraphicsDrawer.drawObjects(graphics);
+        //PropsGraphicsDrawer.drawObjects(graphics);
         MobsGraphicsDrawer.drawMobs(graphics);
 
         graphics.setTransform(originalCameraPosition);

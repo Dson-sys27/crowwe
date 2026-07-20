@@ -1,17 +1,18 @@
 package dson.crowee.obj.objects;
 
 import dson.crowee.sources.colliderSystem.Trigger;
+import dson.crowee.sources.graphicSource.UI.SpriteModel;
 
 public class PlayerCharacter extends Entity{
 
       public int heathScore;
 
-      public PlayerCharacter(FormalCode formalCode){
-            super();
-            super.setX(0);
-            super.setY(0);
-            super.setTrigger(new Trigger<>(this, super.getX(), super.getY()));
-            this.heathScore = 100;
+      public PlayerCharacter(){
+
+      }
+
+      public PlayerCharacter(FormalCode formalCode, Integer internalCode, int x, int y, SpriteModel spriteModel, Trigger<Entity> trigger){
+            super(formalCode, internalCode, x, y, spriteModel, trigger);
       }
 
       public void setHeathScore(int heathScore){

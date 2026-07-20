@@ -5,9 +5,10 @@ import dson.crowee.sources.entityControllers.MobsEventManager;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class MobsGraphicsDrawer {
-    private static ArrayList<Entity> onStageMobs;
+    private static CopyOnWriteArrayList<Entity> onStageMobs;
 
     public static void setMobsGraphicsDrawerOnWork(){
         onStageMobs = MobsEventManager.getOnStageMobs();
@@ -15,7 +16,7 @@ public class MobsGraphicsDrawer {
 
     public static void drawMobs(Graphics2D graphics){
         for(Entity currentMob : onStageMobs){
-            graphics.drawImage(currentMob.getSpriteImages().getFirst(), currentMob.getX(), currentMob.getY(), null);
+            graphics.drawImage(currentMob.getSpriteModel().getSpriteModelImages().getFirst(), currentMob.getX(), currentMob.getY(), null);
         }
     }
 }

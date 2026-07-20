@@ -1,14 +1,26 @@
 package dson.crowee.obj.objects;
 
-public enum FormalCode {
+import dson.crowee.obj.objects.mobs.Baldark;
 
+public enum FormalCode {
     //playerArea
-    PLAYER,
+    PLAYER(PlayerCharacter.class),
     //mobArea
-    BALDARK,
-    H27,
+    BALDARK(Baldark.class),
+    H27(Mob.class),
     //propsArea
-    ONE_LIGHT_STREETLIGHT,
-    TWO_LIGHT_STREETLIGHT,
+    ONE_LIGHT_STREETLIGHT(Prop.class),
+    TWO_LIGHT_STREETLIGHT(Prop.class);
     //tilesArea
+
+
+    private final Class<? extends Entity> entityClass;
+
+    FormalCode(Class<? extends Entity> entityClass){
+        this.entityClass = entityClass;
+    }
+
+    public Class<? extends Entity> getValueOfFormalCode(FormalCode formalCode){
+        return this.entityClass;
+    }
 }

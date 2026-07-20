@@ -20,15 +20,15 @@ public abstract class Entity {
     private Boolean onScreen;
 
     public Entity(){
-        this.spriteImages = new ArrayList<Image>();
 
     }
 
-    public Entity(FormalCode formalCode, int x, int y){
-        this();
+    public Entity(FormalCode formalCode, Integer internalCode, int x, int y, SpriteModel spriteModel, Trigger<Entity> trigger){
         this.formalCode = formalCode;
         setX(x);
         setY(y);
+        setSpriteModel(spriteModel);
+        setTrigger(trigger);
     }
 
     public FormalCode getFormalCode() {
@@ -91,11 +91,20 @@ public abstract class Entity {
         this.spriteImages = spriteImages;
     }
 
+    @Deprecated
     public Boolean getOnScreen() {
         return onScreen;
     }
-
+    @Deprecated
     public void setOnScreen(Boolean onScreen) {
         this.onScreen = onScreen;
+    }
+
+    public SpriteModel getSpriteModel() {
+        return spriteModel;
+    }
+
+    public void setSpriteModel(SpriteModel spriteModel) {
+        this.spriteModel = spriteModel;
     }
 }

@@ -5,6 +5,7 @@ import dson.crowee.sources.GlobalCroweeManager;
 public class Main {
     public static void main() {
         //This method runs the fucking game
-        GlobalCroweeManager.startDaShit();
+        GlobalCroweeManager globalManager = new GlobalCroweeManager();
+        globalManager.startDaShit();
     }
 }

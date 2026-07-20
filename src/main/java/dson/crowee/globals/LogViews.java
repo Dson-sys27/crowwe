@@ -11,12 +11,17 @@ public class LogViews {
     private static final Logger playerCharacterGraphicsControllerLogger = LoggerFactory.getLogger(UIGraphicsDrawer.class);
     private static final Logger mapRendererLogger = LoggerFactory.getLogger(MapRenderer.class);
 
+    //Ordered by handled exceptions
+    private static final Logger UnpredictableExceptionError = LoggerFactory.getLogger("UNPRED_logger");
+    private static final Logger IOExceptionLogger = LoggerFactory.getLogger("IOEX_logger");
 
-    public static void dropMapRendererError(String image){
-        mapRendererLogger.error("Error at opening map file {}", image);
+
+    public static void dropIOExceptionError(String resource, Class<?> caller){
+        IOExceptionLogger.error("Failed at opening resource {} from {}", resource, caller.getCanonicalName());
     }
 
-    public static void dropGraphicsCoreWarning(String image){
-        graphicLogger.error("Error at opening file {}", image);
+    public static void dropUnexpectedExceptionError(Class<?> caller){
+        UnpredictableExceptionError.error("Unpredictable error from {}", caller.getCanonicalName());
     }
+
 }

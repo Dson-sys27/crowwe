@@ -15,7 +15,7 @@ public class MapRenderer {
         try{
             lineas = Files.readAllLines(Paths.get(filePath));
         } catch (IOException e) {
-            LogViews.dropMapRendererError(filePath);
+            LogViews.dropIOExceptionError(filePath, MapRenderer.class);
         }
 
         int filas = lineas.size();

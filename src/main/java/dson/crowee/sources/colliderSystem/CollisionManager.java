@@ -36,7 +36,7 @@ public class CollisionManager {
                 continue;
 
             if(col != oldCol || row != oldRow)
-                spatialGrid[row][col].remove(playerOnMotion);
+                spatialGrid[oldRow][oldCol].remove(playerOnMotion);
 
             if(playerTrigger.onCollision(entity.getTrigger())){
                 //TODO : handle trigger events

@@ -5,13 +5,20 @@ import dson.crowee.obj.objects.Entity;
 import java.awt.*;
 
 public class Trigger <T extends Entity>{
-    private final T entityOnTrigger;
+    private T entityOnTrigger;
     private int triggerX, triggerY, height, width;
 
     public Trigger(T entityOnTrigger, int height, int width){
         this.entityOnTrigger = entityOnTrigger;
         triggerX = entityOnTrigger.getX();
         triggerY = entityOnTrigger.getY();
+    }
+
+    public Trigger(int x, int y, int height, int width){
+        triggerX = x;
+        triggerY = y;
+        this.height = height;
+        this.width = width;
     }
 
     public void render(Graphics graphics){
@@ -50,6 +57,10 @@ public class Trigger <T extends Entity>{
 
     public T getEntityOnTrigger() {
         return entityOnTrigger;
+    }
+
+    public void setEntityOnTrigger(T entity){
+        entityOnTrigger = entity;
     }
 
     public int getTriggerX() {

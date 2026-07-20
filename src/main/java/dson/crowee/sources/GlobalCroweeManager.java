@@ -1,5 +1,7 @@
 package dson.crowee.sources;
 
+import dson.crowee.localStorage.entityMetadata.EntityMetadataContainer;
+import dson.crowee.obj.buiders.EntityFactory;
 import dson.crowee.obj.objects.FormalCode;
 import dson.crowee.obj.objects.PlayerCharacter;
 import dson.crowee.sources.colliderSystem.CollisionManager;
@@ -11,12 +13,20 @@ import dson.crowee.sources.keyboardHandler.KeyboardListener;
 
 public class GlobalCroweeManager {
 
-    public static void startDaShit(){
+    public GlobalCroweeManager(){
+
+    }
+
+    public void startDaShit(){
 
         KeyboardListener.initializeKeyboardListener();
         DataStorageManager.loadObjectMapper();
+        EntityMetadataContainer.setEntityMetadataClassOnWork();
 
-        PlayerCharacter theMan = new PlayerCharacter(FormalCode.PLAYER);
+        EntityFactory entityFactory = EntityFactory.getInstance();
+
+        PlayerCharacter theMan = (PlayerCharacter) entityFactory.build(FormalCode.PLAYER);
+
 
         CollisionManager.setTriggerSystemOnWork();
 
@@ -25,7 +35,7 @@ public class GlobalCroweeManager {
 
         PlayerCharacterGraphicsDrawer.setPlayerCharacterGraphicsControllerOnWork(theMan);
         MobsGraphicsDrawer.setMobsGraphicsDrawerOnWork();
-        PropsGraphicsDrawer.setPropsGraphicsManagerOnWork();
+        //PropsGraphicsDrawer.setPropsGraphicsManagerOnWork();
         WorldMapGraphicsDrawer.setWorldMapGraphicsOnWork();
         UIGraphicsDrawer.setUIGraphicsManagerOnWork();
 

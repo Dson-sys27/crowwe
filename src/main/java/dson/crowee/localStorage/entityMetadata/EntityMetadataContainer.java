@@ -22,7 +22,7 @@ public class EntityMetadataContainer {
     public static void setEntityMetadataClassOnWork(){
         loadObjectMapper();
 
-        try (FileReader reader = new FileReader("\\mData\\entities_metadata.json")){
+        try (FileReader reader = new FileReader("C:\\Users\\david\\Documents\\Java Projects\\croww\\src\\main\\resources\\mData\\entities_metadata.json")){
             Gson gson = new Gson();
             Type tokenType = new TypeToken<Map<FormalCode, EntityRecord>>(){}.getType();
             Map<FormalCode, EntityRecord> data = gson.fromJson(reader, tokenType);

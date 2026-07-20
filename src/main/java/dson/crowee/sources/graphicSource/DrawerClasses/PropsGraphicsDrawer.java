@@ -1,5 +1,6 @@
 package dson.crowee.sources.graphicSource.DrawerClasses;
 
+import dson.crowee.obj.buiders.EntityFactory;
 import dson.crowee.obj.objects.Entity;
 import dson.crowee.obj.objects.FormalCode;
 import dson.crowee.obj.objects.Prop;
@@ -19,10 +20,10 @@ public class PropsGraphicsDrawer {
         if(props == null){
             props = new TreeMap<Integer, Entity>();
         }
-
+        /*
         Entity farola = props.get(0);
         if(farola == null)
-            farola = new Prop(FormalCode.ONE_LIGHT_STREETLIGHT, 50, 50);
+            farola = EntityFactory.;
         props.put(0, farola);
         CollisionManager.setEntityOnSpatialGrid(farola);
         ArrayList<Image> spritesImages = props.get(0).getSpriteImages();
@@ -33,6 +34,8 @@ public class PropsGraphicsDrawer {
             System.out.println("caca");
         }
         spritesImages.add(farolaImage);
+        */
+         
     }
 
     public static void drawObjects(Graphics2D graphics){

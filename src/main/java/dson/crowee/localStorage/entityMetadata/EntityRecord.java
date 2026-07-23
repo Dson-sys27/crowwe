@@ -7,6 +7,8 @@ public record EntityRecord(
         int spriteInitY,
         int spriteEndX,
         int spriteEndY,
+        int spriteHeight,
+        int spriteWidth,
         int x,
         int y,
         int triggerHeight,

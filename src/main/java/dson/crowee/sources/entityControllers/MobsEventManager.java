@@ -41,13 +41,19 @@ public class MobsEventManager {
             currentMob.setY(playerCharacter.getY() + rand.nextInt(1000 + 1 - (-1000)) - 1000);
 
             onStageMobs.add(currentMob);
-            /*
-            TODO: join collisionManager and this class
+
+            //TODO: join collisionManager and this class
             CollisionManager.setEntityOnSpatialGrid(currentMob);
-             */
+
+
+            nextTime += 50000000000L;
         }
 
         for(Entity currentMob : onStageMobs){
+
+            int oldX = currentMob.getX();
+            int oldY = currentMob.getY();
+
             if(currentMob.getX() > playerCharacter.getX())
                 currentMob.setX(currentMob.getX() - Utilities.MOB_SPEED);
             if(currentMob.getX() < playerCharacter.getX())
@@ -57,11 +63,12 @@ public class MobsEventManager {
             if(currentMob.getY() < playerCharacter.getY())
                 currentMob.setY(currentMob.getY() + Utilities.MOB_SPEED);
 
+
+            CollisionManager.getSignalMail().add(new Signal(currentMob, oldX, oldY));
             if(outOfRangeMob(currentMob))
                 onStageMobs.remove(currentMob);
         }
 
-        nextTime += 999999999;
     }
 
     private static boolean outOfRangeMob(Entity entity){

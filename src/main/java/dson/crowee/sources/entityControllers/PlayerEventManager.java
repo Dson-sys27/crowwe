@@ -4,6 +4,8 @@ import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.Entity;
 import dson.crowee.obj.objects.PlayerCharacter;
 import dson.crowee.obj.objects.Prop;
+import dson.crowee.obj.objects.mobs.Baldark;
+import dson.crowee.obj.objects.mobs.H27;
 import dson.crowee.sources.colliderSystem.CollisionManager;
 import dson.crowee.sources.colliderSystem.Signal;
 import dson.crowee.sources.graphicSource.DrawerClasses.UIGraphicsDrawer;
@@ -62,7 +64,8 @@ public class PlayerEventManager {
             long tiempoActual = System.currentTimeMillis();
 
             if(tiempoActual >= next){
-                if(eventEmitter.getClass() == Prop.class){
+                if(eventEmitter.getClass() == Baldark.class){
+                    System.out.println("dañao");
                     int currentHealth = playerCharacter.getHeathScore();
                     playerCharacter.setHeathScore(currentHealth - 10);
                     UIGraphicsDrawer.setHealthValue(1 + (100 / 17) - (currentHealth / 17));

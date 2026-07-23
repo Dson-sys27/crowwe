@@ -18,7 +18,7 @@ public class UIGraphicsDrawer {
         SpriteSheet UISprites = null;
         try{
             URL sourcePath = UIGraphicsDrawer.class.getResource(Utilities.UI_SPRITESHEET);
-            UISprites = new SpriteSheet(sourcePath, 16);
+            UISprites = new SpriteSheet(sourcePath, 16, 16, 160, 160);
         }catch(Exception e){
             System.out.println("gg");
         }

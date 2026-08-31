@@ -22,6 +22,7 @@ public class InitializedCanvas extends Canvas{
         mainWindow.setResizable(Boolean.FALSE);
         mainWindow.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         mainWindow.setLayout(new BorderLayout());
+        mainWindow.setLocation(0, 0);
         mainWindow.add(this, BorderLayout.CENTER);
         mainWindow.setLocationRelativeTo(null);
         mainWindow.pack();

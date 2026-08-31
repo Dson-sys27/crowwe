@@ -11,29 +11,36 @@ import java.io.IOException;
 import java.net.URL;
 
 public class SpriteSheet {
-    private Integer width, length;
-    private BufferedImage[][] spriteSheetImages;
-    private int spriteSize;
+    private Integer width, height;
+    private final BufferedImage[][] spriteSheetImages;
+    private final int spriteHeight, spriteWidth;
 
-    public SpriteSheet (final URL sourcePath, final int spriteSize) throws IOException{
-        width = spriteSize * 10;
-        length = spriteSize * 10;
-        this.spriteSize = spriteSize;
-        spriteSheetImages = new BufferedImage[length / spriteSize][width / spriteSize];
+    public SpriteSheet (final URL sourcePath,
+                        final int spriteHeight,
+                        final int spriteWidth,
+                        final int height,
+                        final int width
+    ) throws IOException{
+        this.width = width;
+        this.height = height;
+        this.spriteHeight = spriteHeight;
+        this.spriteWidth = spriteWidth;
+        spriteSheetImages = new BufferedImage[spriteHeight][spriteWidth];
         BufferedImage spriteImage;
         spriteImage = ImageIO.read(sourcePath);
 
         try{
-            for(int i = 0; i < length / spriteSize; i++)
-                for(int j = 0; j < width / spriteSize; j++){
-                    BufferedImage currentSprite = new BufferedImage(spriteSize
-                            , spriteSize
+            for(int i = 0; i < this.height / spriteHeight; i++)
+                for(int j = 0; j < this.width / spriteWidth; j++){
+                    BufferedImage currentSprite = new BufferedImage(
+                            spriteWidth
+                            , spriteHeight
                             , BufferedImage.TYPE_INT_ARGB);
-                    for(int k = 0; k < spriteSize * spriteSize; k++){
-                        int rgb = spriteImage.getRGB((k % spriteSize) + (j * spriteSize)
-                                , (k / spriteSize) + (i * spriteSize));
-                        currentSprite.setRGB((k % spriteSize)
-                                , (k / spriteSize), rgb);
+                    for(int k = 0; k < this.spriteHeight * this.spriteWidth; k++){
+                        int rgb = spriteImage.getRGB((k % spriteWidth) + (j * spriteWidth)
+                                , (k / spriteHeight) + (i * spriteHeight));
+                        currentSprite.setRGB((k % spriteWidth)
+                                , (k / spriteHeight), rgb);
                     }
                     spriteSheetImages[i][j] = currentSprite;
                 }
@@ -50,12 +57,12 @@ public class SpriteSheet {
         this.width = width;
     }
 
-    public Integer getLength() {
-        return length;
+    public Integer getHeight() {
+        return height;
     }
 
-    public void setLength(Integer length) {
-        this.length = length;
+    public void setLength(Integer height) {
+        this.height = height;
     }
 
     public BufferedImage[][] getSpriteSheetImages() {

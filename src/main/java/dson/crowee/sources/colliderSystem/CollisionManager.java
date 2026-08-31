@@ -8,10 +8,11 @@ import dson.crowee.sources.entityControllers.EventCode;
 import dson.crowee.sources.entityControllers.PlayerEventManager;
 
 import java.util.*;
+import java.util.concurrent.CopyOnWriteArrayList;
 
 public class CollisionManager {
     private static ArrayDeque<Signal> signalMail;
-    private static ArrayList<Entity>[][] spatialGrid;
+    private static CopyOnWriteArrayList<Entity>[][] spatialGrid;
     private static int width, heigth;
 
     public static void setTriggerSystemOnWork(){
@@ -20,23 +21,25 @@ public class CollisionManager {
         heigth = Utilities.WORLD_MAP.length * Utilities.SPRITE_SIZE / Utilities.SPATIAL_GRID_CELL_SIZE;
         width = Utilities.WORLD_MAP.length * Utilities.SPRITE_SIZE  / Utilities.SPATIAL_GRID_CELL_SIZE;
 
-        spatialGrid = new ArrayList[heigth][width];
+        spatialGrid = new CopyOnWriteArrayList[heigth][width];
 
         for(int i = 0; i < heigth; i++)
             for(int j = 0; j < width; j++)
-                spatialGrid[i][j] = new ArrayList<>();
+                spatialGrid[i][j] = new CopyOnWriteArrayList<>();
     }
 
     private static void updateEntitiesOnSpatialGrid(Entity playerOnMotion, int row, int col, int oldRow, int oldCol){
-        List<Entity> entitiesOnCell = spatialGrid[row][col];
+        CopyOnWriteArrayList<Entity> entitiesOnCell = spatialGrid[row][col];
         Trigger<Entity> playerTrigger = playerOnMotion.getTrigger();
 
         for(Entity entity : entitiesOnCell){
             if(entity == playerOnMotion)
                 continue;
 
-            if(col != oldCol || row != oldRow)
+            if(col != oldCol || row != oldRow) {
                 spatialGrid[oldRow][oldCol].remove(playerOnMotion);
+                spatialGrid[row][col].add(playerOnMotion);
+            }
 
             if(playerTrigger.onCollision(entity.getTrigger())){
                 //TODO : handle trigger events
@@ -74,8 +77,11 @@ public class CollisionManager {
         int entityX = entity.getX();
         int entityY = entity.getY();
 
-        int col = entityX / Utilities.SPATIAL_GRID_CELL_SIZE;
-        int row = entityY / Utilities.SPATIAL_GRID_CELL_SIZE;
+        int rawCol = entityX / Utilities.SPATIAL_GRID_CELL_SIZE;
+        int rawRow = entityY / Utilities.SPATIAL_GRID_CELL_SIZE;
+
+        int col = Math.max(0, Math.min(width - 1, rawCol));
+        int row = Math.max(0, Math.min(heigth - 1, rawRow));
 
         spatialGrid[row][col].add(entity);
     }

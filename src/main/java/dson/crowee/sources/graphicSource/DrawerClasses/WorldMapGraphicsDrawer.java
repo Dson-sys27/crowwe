@@ -3,10 +3,12 @@ package dson.crowee.sources.graphicSource.DrawerClasses;
 import dson.crowee.globals.Utilities;
 import dson.crowee.obj.objects.PlayerCharacter;
 import dson.crowee.sources.graphicSource.UI.SpriteSheet;
+import dson.crowee.sources.sourceTools.BufferedImageTools;
 import dson.crowee.sources.sourceTools.MapRenderer;
 
 import javax.imageio.ImageIO;
 import java.awt.*;
+import java.awt.image.BufferedImage;
 import java.net.URL;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -15,7 +17,7 @@ import java.util.ArrayList;
 public class WorldMapGraphicsDrawer {
 
     private static int[][] worldMap;
-    private static ArrayList<Image> worldMapImages;
+    private static ArrayList<BufferedImage> worldMapImages;
     private static int worldHeigth;
     private static int worldWidth;
     private final static int SPRITE_SCALE = Utilities.SPRITE_SIZE * Utilities.SCALE_SIZE;
@@ -26,7 +28,7 @@ public class WorldMapGraphicsDrawer {
         try{
             worldMap = Utilities.WORLD_MAP;
             URL spriteSheetURL = WorldMapGraphicsDrawer.class.getResource(Utilities.SPRITESHEET_1_R_PATH);
-             spriteSheet = new SpriteSheet(spriteSheetURL, 32);
+             spriteSheet = new SpriteSheet(spriteSheetURL, 32, 32, 320, 320);
         }catch(Exception e){
             e.printStackTrace();
         }
@@ -34,11 +36,10 @@ public class WorldMapGraphicsDrawer {
         worldHeigth = worldMap.length;
         worldWidth = worldMap[0].length;
 
-        Image[][] sprites = spriteSheet.getSpriteSheetImages();
+        BufferedImage[][] sprites = spriteSheet.getSpriteSheetImages();
         for(int i = 0; i < 10; i++)
             for(int j = 0; j< 10; j++)
                 worldMapImages.add(sprites[i][j]);
-
     }
 
     public static void drawWorldMap(Graphics2D graphics){
@@ -66,12 +67,15 @@ public class WorldMapGraphicsDrawer {
             finalScreenPositionX = worldWidth;
 
         for(int j = initialScreenPositionY; j < finalScreenPositionY ; j ++)
-            for(int i = initialScreenPositionX; i < finalScreenPositionX; i ++)
-                    graphics.drawImage(worldMapImages.get(worldMap[j][i]),
-                            i * Utilities.SPRITE_SIZE,
-                            j * Utilities.SPRITE_SIZE,
-                            SPRITE_SCALE,
-                            SPRITE_SCALE,
-                            null);
+            for(int i = initialScreenPositionX; i < finalScreenPositionX; i ++){
+                int drawerIndex = worldMap[j][i];
+                BufferedImage imageOnDraw = worldMapImages.get(drawerIndex);
+                graphics.drawImage(imageOnDraw,
+                        i * Utilities.SPRITE_SIZE,
+                        j * Utilities.SPRITE_SIZE,
+                        32,
+                        32,
+                        null);
+            }
     }
 }

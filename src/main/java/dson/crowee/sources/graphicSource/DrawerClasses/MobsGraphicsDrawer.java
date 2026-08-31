@@ -16,7 +16,15 @@ public class MobsGraphicsDrawer {
 
     public static void drawMobs(Graphics2D graphics){
         for(Entity currentMob : onStageMobs){
-            graphics.drawImage(currentMob.getSpriteModel().getSpriteModelImages().getFirst(), currentMob.getX(), currentMob.getY(), null);
+            graphics.drawImage(currentMob
+                    .getSpriteModel()
+                    .getSpriteModelImages()
+                    .getFirst(),
+                    currentMob.getX(),
+                    currentMob.getY(),
+                    64,
+                    64,
+                    null);
         }
     }
 }

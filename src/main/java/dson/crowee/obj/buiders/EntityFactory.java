@@ -48,8 +48,11 @@ public class EntityFactory implements EntityBuilder{
         URL url = Thread.currentThread().getContextClassLoader().getResource(record.spriteSheetRelativePath());
         try{
             spriteSheet = new SpriteSheet(
-                    url
-                    , Utilities.SPRITE_SIZE
+                    url,
+                    record.spriteHeight(),
+                    record.spriteWidth(),
+                    record.spriteHeight() * 10,
+                    record.spriteWidth() * 10
             );
         } catch (Exception e) {
             LogViews.dropIOExceptionError(record.spriteSheetRelativePath(), EntityFactory.class);

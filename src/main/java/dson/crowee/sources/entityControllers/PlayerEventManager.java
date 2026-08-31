@@ -71,9 +71,6 @@ public class PlayerEventManager {
                     UIGraphicsDrawer.setHealthValue(1 + (100 / 17) - (currentHealth / 17));
                     if(currentHealth <= 0)
                         UIGraphicsDrawer.setHealthValue(6);
-
-                    playerCharacter.setX(currentX);
-                    playerCharacter.setY(currentY);
                 }
             }
 
